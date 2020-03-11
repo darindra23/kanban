@@ -9,10 +9,9 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 class Controller {
   static async register(req, res, next) {
     try {
-      let create = await User.create(req.body);
-      res
-        .status(201)
-        .json({ Message: "User successfully created.", Data: create });
+      let { id, email } = await User.create(req.body);
+      let access_token = sign({ id, email });
+      res.status(201).json({ access_token });
     } catch (err) {
       next(err);
     }
