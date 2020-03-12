@@ -9,9 +9,9 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 class Controller {
   static async register(req, res, next) {
     try {
-      let { id, email } = await User.create(req.body);
+      let { id, email, fullname } = await User.create(req.body);
       let access_token = sign({ id, email });
-      res.status(201).json({ access_token });
+      res.status(201).json({ access_token, fullname });
     } catch (err) {
       next(err);
     }
@@ -23,10 +23,10 @@ class Controller {
           email: req.body.email
         }
       };
-      let { id, email, password } = await User.findOne(condition);
+      let { id, fullname, email, password } = await User.findOne(condition);
       if (compare(req.body.password, password)) {
         let access_token = sign({ id, email });
-        res.status(200).json({ access_token });
+        res.status(200).json({ access_token, fullname });
       } else {
         throw createError(400);
       }
@@ -55,7 +55,7 @@ class Controller {
           password
         });
         let access_token = sign({ id, email });
-        res.status(201).json({ access_token });
+        res.status(201).json({ access_token, fullname });
       } else {
         let access_token = sign({
           id: user.id,

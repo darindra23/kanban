@@ -4,7 +4,10 @@
     <title>Kanban By Darindra R</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com"/>
+    <meta
+      name="google-signin-client_id"
+      content="15356276756-3g3vknbr5u5b3s4qe3rlf64t2qrac3l3.apps.googleusercontent.com"
+    />
     <!--===============================================================================================-->
     <link
       rel="stylesheet"
@@ -40,6 +43,8 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="./images/favicon.ico" type="image/x-icon" />
     <!--===============================================================================================-->
   </head>
   <body>
@@ -157,7 +162,11 @@
                   Or login with
                 </span>
               </div>
-              <div class="g-signin2 " data-onsuccess="onSignIn" style="margin-left: 115px;"></div>
+              <div
+                class="g-signin2 "
+                data-onsuccess="onSignIn"
+                style="margin-left: 115px;"
+              ></div>
               <div class="text-center w-full p-t-30">
                 <span class="txt1">
                   Not a member?
@@ -182,7 +191,10 @@
             <div class="d-flex justify-content-center">
               <img src="./images/logo.png" alt="" width="80px" />
             </div>
-            <form class="login100-form validate-form" @submit.prevent="register">
+            <form
+              class="login100-form validate-form"
+              @submit.prevent="register"
+            >
               <span class="login100-form-title p-b-15 p-t-15">
                 Register
               </span>
@@ -246,7 +258,11 @@
                   Or register with
                 </span>
               </div>
-              <div class="g-signin2 " data-onsuccess="onSignIn" style="margin-left: 115px;"></div>
+              <div
+                class="g-signin2 "
+                data-onsuccess="onSignIn"
+                style="margin-left: 115px;"
+              ></div>
               <div class="text-center w-full p-t-30">
                 <span class="txt1">
                   Already have an account?
@@ -262,119 +278,191 @@
       </div>
       <!-- END OF REGISTER -->
       <!-- HOME PAGE -->
-      <div class="container mt-4 p-0" v-if="page === 2">
+      <div class="container mt-4 p-0" v-if="page === 2" id="home">
         <div class="row">
           <!-- BACKLOG -->
-          <div class="col m-2 bg-info" style="height: 100%;">
-            <div class="ml-3 mb-3 mt-3 bg-info">
+          <div
+            class="col m-2 text-white rounded"
+            style="background-color: #44bee3;height: 100%;"
+          >
+            <div
+              class="ml-3 mb-3 mt-3 d-flex"
+              style="background-color: #44bee3;"
+            >
               <h5>Back Log</h5>
+              <span
+                class="lnr lnr-file-add ml-auto"
+                style="cursor: pointer;"
+              ></span>
             </div>
             <!-- START CARD -->
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
+            <div v-for="task in tasks">
+              <div
+                class="card m-2 mb-2"
+                style="box-shadow: 2px 2px 2px 2px grey"
+              >
+                <div class="card-body">
+                  <h5 class="mb-1 text-dark">
+                    <strong>{{task.title}}</strong>
+                  </h5>
+                  <p class="card-text">
+                    {{task.description}}
+                  </p>
+                  <div class="d-flex">
+                    <span
+                      class="lnr lnr-trash ml-auto"
+                      style="color: black; cursor: pointer;"
+                      @click.prevent="remove(task.id)"
+                    ></span>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- END OF CARD -->
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
-              </div>
-            </div>
-            <div class="ml-3">
-              <a href="">+ Add Another Card</a>
-            </div>
+            <div
+              class="card-footer mt-4"
+              style="background-color: #44bee3;"
+            ></div>
           </div>
           <!-- TODO -->
-          <div class="col m-2 bg-info" style="height: 100%;">
-            <div class="ml-3 mb-3 mt-3 bg-info">
-              <h5>Back Log</h5>
+          <div
+            class="col m-2 text-white rounded"
+            style="height: 100%;background-color: #ffb81f;"
+          >
+            <div
+              class="ml-3 mb-3 mt-3 d-flex"
+              style="background-color: #ffb81f;"
+            >
+              <h5>Todo</h5>
+              <span
+                class="lnr lnr-file-add ml-auto"
+                style="cursor: pointer;"
+              ></span>
             </div>
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
+            <!-- START TODO TASK -->
+            <div>
+              <div v-for="task in tasks">
+                <div
+                  class="card m-2 mb-2"
+                  style="box-shadow: 2px 2px 2px 2px grey"
+                  @dragover.prevent
+                >
+                  <div class="card-body">
+                    <h5 class="mb-1 text-dark">
+                      <strong>{{task.title}}</strong>
+                    </h5>
+                    <p class="card-text">
+                      {{task.description}}
+                    </p>
+                    <div class="d-flex">
+                      <span
+                        class="lnr lnr-trash ml-auto"
+                        style="color: black; cursor: pointer;"
+                      ></span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="ml-3">
-              <a href="">+ Add Another Card</a>
-            </div>
+            <div
+              class="card-footer mt-4"
+              style="background-color: #ffb81f;"
+            ></div>
           </div>
           <!-- DONE -->
-          <div class="col m-2 bg-info" style="height: 100%;">
-            <div class="ml-3 mb-3 mt-3 bg-info">
-              <h5>Back Log</h5>
+          <div
+            class="col m-2 text-white rounded"
+            style="height: 100%; background-color: #27e67a;"
+          >
+            <div
+              class="ml-3 mb-3 mt-3 d-flex"
+              style="background-color: #27e67a"
+            >
+              <h5>Done</h5>
+              <span
+                class="lnr lnr-file-add ml-auto"
+                style="cursor: pointer;"
+              ></span>
             </div>
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
+            <div v-for="task in tasks">
+              <div
+                class="card m-2 mb-2"
+                style="box-shadow: 2px 2px 2px 2px grey"
+              >
+                <div class="card-body">
+                  <h5 class="mb-1 text-dark">
+                    <strong>{{task.title}}</strong>
+                  </h5>
+                  <p class="card-text">
+                    {{task.description}}
+                  </p>
+                  <div class="d-flex">
+                    <span
+                      class="lnr lnr-trash ml-auto"
+                      style="color: black; cursor: pointer;"
+                    ></span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
-              </div>
-            </div>
-            <div class="ml-3">
-              <a href="">+ Add Another Card</a>
-            </div>
+            <div
+              class="card-footer mt-4"
+              style="background-color: #27e67a;"
+            ></div>
           </div>
           <!-- COMPLETED -->
-          <div class="col m-2 bg-info" style="height: 100%;">
-            <div class="ml-3 mb-3 mt-3 bg-info">
-              <h5>Back Log</h5>
+          <div
+            class="col m-2 text-white rounded"
+            style="height: 100%;background-color: #ed95aa;"
+          >
+            <div
+              class="ml-3 mb-3 mt-3 d-flex"
+              style="background-color: #ed95aa;"
+            >
+              <h5>Completed</h5>
+              <span
+                class="lnr lnr-file-add ml-auto"
+                style="cursor: pointer;"
+              ></span>
             </div>
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
+            <div v-for="task in tasks">
+              <div
+                class="card m-2 mb-2"
+                style="box-shadow: 2px 2px 2px 2px grey"
+              >
+                <div class="card-body">
+                  <h5 class="mb-1 text-dark">
+                    <strong>{{task.title}}</strong>
+                  </h5>
+                  <p class="card-text">
+                    {{task.description}}
+                  </p>
+                  <div class="d-flex">
+                    <span
+                      class="lnr lnr-trash ml-auto"
+                      style="color: black; cursor: pointer;"
+                    ></span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="card m-2">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-                <a href="">Go somewhere</a>
-              </div>
-            </div>
-            <div class="ml-3">
-              <a href="">+ Add Another Card</a>
-            </div>
+            <div
+              class="card-footer mt-4"
+              style="background-color: #ed95aa;"
+            ></div>
           </div>
         </div>
       </div>
     </div>
     <!-- END OF HOME PAGE -->
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="./vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="./vendor/bootstrap/js/popper.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./vendor/select2/select2.min.js"></script>
+    <script src="./js/main.js"></script>
     <script src="./app.js"></script>
   </body>
 </html>

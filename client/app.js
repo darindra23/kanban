@@ -9,6 +9,7 @@ const app = new Vue({
   el: "#app",
   data: {
     page: 0,
+    tasks: [],
     email_login: "",
     password_login: "",
     fullname_register: "",
@@ -17,6 +18,7 @@ const app = new Vue({
   },
   created() {
     if (localStorage.access_token) {
+      this.getTask();
       this.page = 2;
     }
   },
@@ -48,12 +50,29 @@ const app = new Vue({
         this.errorHandler(error);
       }
     },
-    onSignIn(googleUser) {
-      var id_token = googleUser.getAuthResponse().id_token;
-      console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log("Name: " + profile.getName());
-      console.log("Image URL: " + profile.getImageUrl());
-      console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+    async getTask() {
+      try {
+        let { data } = await axios.get(`${BASE_URL}`, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+        this.tasks = data;
+      } catch (error) {
+        this.errorHandler(error);
+      }
+    },
+    async remove(id) {
+      try {
+        let deleted = await axios.delete(`${BASE_URL}/${id}`, {
+          headers: {
+            access_token: localStorage.access_token
+          }
+        });
+        this.getTask();
+      } catch (error) {
+        this.errorHandler(error);
+      }
     },
     errorHandler(error) {
       if (error.response) {
