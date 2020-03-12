@@ -1,5 +1,17 @@
 const USER_URL = "https://kanban-darindra.herokuapp.com/user";
 const BASE_URL = "https://kanban-darindra.herokuapp.com/tasks";
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: toast => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  }
+});
+
 let page = {
   login: 0,
   register: 1,
@@ -31,7 +43,12 @@ const app = new Vue({
         };
         let { data } = await axios.post(`${USER_URL}/login`, inputData);
         localStorage.setItem("access_token", data.access_token);
+        this.getTask();
         this.page = 2;
+        Toast.fire({
+          icon: "success",
+          title: "Signed in successfully"
+        });
       } catch (error) {
         this.errorHandler(error);
       }
@@ -64,12 +81,27 @@ const app = new Vue({
     },
     async remove(id) {
       try {
-        let deleted = await axios.delete(`${BASE_URL}/${id}`, {
-          headers: {
-            access_token: localStorage.access_token
-          }
+        let result = await Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
         });
-        this.getTask();
+        if (result.value) {
+          let deleted = await axios.delete(`${BASE_URL}/${id}`, {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          });
+          this.getTask();
+          Toast.fire({
+            icon: "success",
+            title: "Succesfully deleted tasks."
+          });
+        }
       } catch (error) {
         this.errorHandler(error);
       }

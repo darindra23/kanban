@@ -181,6 +181,7 @@
         </div>
       </div>
       <!-- END OF LOGIN -->
+
       <!-- REGISTER PAGE -->
       <div class="limiter" v-if="page === 1">
         <div class="container-login100">
@@ -277,9 +278,9 @@
         </div>
       </div>
       <!-- END OF REGISTER -->
+
       <!-- HOME PAGE -->
-      <div class="container mt-4 p-0" v-if="page === 2" id="home">
-        <div class="row">
+        <div class="row mt-4 mr-2 ml-2 p-0" v-if="page === 2" id="home">
           <!-- BACKLOG -->
           <div
             class="col m-2 text-white rounded"
@@ -372,11 +373,11 @@
           <!-- DONE -->
           <div
             class="col m-2 text-white rounded"
-            style="height: 100%; background-color: #27e67a;"
+            style="height: 100%; background-color: #54d68c;"
           >
             <div
               class="ml-3 mb-3 mt-3 d-flex"
-              style="background-color: #27e67a"
+              style="background-color: #54d68c"
             >
               <h5>Done</h5>
               <span
@@ -407,7 +408,7 @@
             </div>
             <div
               class="card-footer mt-4"
-              style="background-color: #27e67a;"
+              style="background-color: #54d68c;"
             ></div>
           </div>
           <!-- COMPLETED -->
@@ -452,11 +453,11 @@
             ></div>
           </div>
         </div>
-      </div>
+        
     </div>
     <!-- END OF HOME PAGE -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="./vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="./vendor/bootstrap/js/popper.js"></script>
