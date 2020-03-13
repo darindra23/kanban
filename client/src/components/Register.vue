@@ -68,6 +68,7 @@
 <script>
 import { axios, errorHandler } from "../config/axios.js";
 import Google from "./google";
+import Swal from "sweetalert2";
 export default {
   name: "Register",
   components: {
@@ -87,13 +88,30 @@ export default {
         email: this.email,
         password: this.password
       };
-      axios.post("/user/register", inputData)
+      axios
+        .post("/user/register", inputData)
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.$emit("register");
         })
-        .catch(err => {
-          errorHandler(err);
+        .catch(error => {
+          if (error.response.data[0].type === "Validation error") {
+            Swal.fire({
+              icon: "error",
+              title: "Please fill out all the form."
+            });
+          } else if (error.response.data[0].type === "unique violation") {
+            Swal.fire({
+              icon: "error",
+              title: "Email has already registered."
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
+          }
         });
     },
     loginForm() {

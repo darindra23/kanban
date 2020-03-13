@@ -1,21 +1,20 @@
 <template>
-  <div class="card m-2 mb-2" style="box-shadow: 2px 2px 2px 2px grey; cursor:pointer;"  >
+  <div class="card m-2 mb-2" style="box-shadow: 2px 2px 2px 2px grey; cursor:pointer;">
     <div class="card-body" v-b-modal.edit @click="edit">
       <h5 class="mb-1 text-dark">
         <strong>{{task.title}}</strong>
       </h5>
-      <p class="card-text" >{{task.description}}</p>
+      <p class="card-text">{{task.description}}</p>
     </div>
-        <span
-          class="lnr lnr-trash ml-auto mr-3 mb-3"
-          style="color: black; cursor: pointer;"
-          @click.prevent="remove(task.id)" 
-        ></span>
-     
+    <span
+      class="lnr lnr-trash ml-auto mr-3 mb-3"
+      style="color: black; cursor: pointer;"
+      @click.prevent="remove(task.id)"
+    ></span>
   </div>
 </template>
 <script>
-import { axios, errorHandler } from "../config/axios";
+import { axios, errorHandler } from "../config/axios.js";
 import Swal from "sweetalert2";
 const Toast = Swal.mixin({
   toast: true,

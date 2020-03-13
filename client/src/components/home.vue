@@ -72,9 +72,7 @@ export default {
         .then(({ data }) => {
           this.tasks = data;
         })
-        .catch(err => {
-          errorHandler(err);
-        });
+        .catch(err => {});
     },
     remove(id) {
       this.tasks = this.tasks.filter(i => i.id !== id);

@@ -55,8 +55,9 @@
   </div>
 </template>
 <script>
-import {axios,errorHandler} from '../config/axios.js'
+import { axios, errorHandler } from "../config/axios.js";
 import Google from "./google";
+import Swal from "sweetalert2";
 export default {
   components: {
     Google
@@ -80,8 +81,24 @@ export default {
           localStorage.setItem("access_token", data.access_token);
           this.$emit("login", { value: 2 });
         })
-        .catch(err => {
-          errorHandler(err);
+        .catch(error => {
+          if (error.response.status === 404) {
+            Swal.fire({
+              icon: "error",
+              title: "Invalid Email / Password !"
+            });
+          } else if (error.response.status === 400) {
+            Swal.fire({
+              icon: "error",
+              title: "Invalid Email / Password !"
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Something went wrong!"
+            });
+          }
         });
     },
     registerForm() {
