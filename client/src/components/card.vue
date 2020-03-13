@@ -67,3 +67,9 @@ export default {
   }
 };
 </script>
+<style>
+.card-body:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+</style>

@@ -39,3 +39,9 @@ export default {
   }
 };
 </script>
+<style>
+.lnr:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+</style>
