@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import { axios, errorHandler } from "../config/axios.js";
+import {axios,errorHandler} from '../config/axios.js'
 import Google from "./google";
 export default {
   components: {

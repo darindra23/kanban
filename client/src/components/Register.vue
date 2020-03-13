@@ -87,13 +87,13 @@ export default {
         email: this.email,
         password: this.password
       };
-      Axios.post("/user/register", inputData)
+      axios.post("/user/register", inputData)
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           this.$emit("register");
         })
         .catch(err => {
-          console.log(err);
+          errorHandler(err);
         });
     },
     loginForm() {

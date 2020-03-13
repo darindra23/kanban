@@ -1,7 +1,7 @@
 <template>
   <div
     class="col m-2 text-white rounded"
-    style="height:100%; overflow : scroll;"
+    style="height:100%; overflow : auto;"
     :style="{'background-color': category.Color}"
   >
     <div class="ml-3 mb-3 mt-3 d-flex" :style="{'background-color': category.Color}">

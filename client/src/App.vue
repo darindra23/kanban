@@ -47,18 +47,13 @@ export default {
   },
   methods: {
     changePage(page) {
+      this.page = page.value;
       if (page.value === 2) {
         Toast.fire({
           icon: "success",
           title: "Signed in successfully"
         });
-      } else if (page.value === 0) {
-        Toast.fire({
-          icon: "success",
-          title: "Sign out successfully, See you again !"
-        });
       }
-      this.page = page.value;
     }
   }
 };

@@ -18,11 +18,27 @@
   </div>
 </template>
 <script>
+import Swal from "sweetalert2";
+const Toast = Swal.mixin({
+  toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: toast => {
+    toast.addEventListener("mouseenter", Swal.stopTimer);
+    toast.addEventListener("mouseleave", Swal.resumeTimer);
+  }
+});
 export default {
   methods: {
     signOut() {
       localStorage.clear();
       this.$emit("signOut", { value: 0 });
+      Toast.fire({
+          icon: "success",
+          title: "Sign out successfully , See you again !"
+        });
     }
   }
 };

@@ -1,18 +1,17 @@
 <template>
-  <div class="card m-2 mb-2" style="box-shadow: 2px 2px 2px 2px grey; cursor:pointer;" v-b-modal.edit @click="edit" >
-    <div class="card-body">
+  <div class="card m-2 mb-2" style="box-shadow: 2px 2px 2px 2px grey; cursor:pointer;"  >
+    <div class="card-body" v-b-modal.edit @click="edit">
       <h5 class="mb-1 text-dark">
         <strong>{{task.title}}</strong>
       </h5>
       <p class="card-text" >{{task.description}}</p>
-      <div class="d-flex">
-        <span
-          class="lnr lnr-trash ml-auto"
-          style="color: black; cursor: pointer;"
-          @click.prevent="remove(task.id)"
-        ></span>
-      </div>
     </div>
+        <span
+          class="lnr lnr-trash ml-auto mr-3 mb-3"
+          style="color: black; cursor: pointer;"
+          @click.prevent="remove(task.id)" 
+        ></span>
+     
   </div>
 </template>
 <script>
@@ -34,7 +33,6 @@ export default {
   props: ["task", "category"],
   methods: {
     remove(id) {
-      this.$bvModal.hide("edit");
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
