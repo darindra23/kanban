@@ -59,10 +59,9 @@ class Controller {
       } else {
         let access_token = sign({
           id: user.id,
-          email: user.email,
-          fullname: user.fullname
+          email: user.email
         });
-        res.status(200).json({ access_token, fullname });
+        res.status(200).json({ access_token, fullname: user.fullname });
       }
     } catch (error) {
       next(error);
