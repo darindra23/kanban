@@ -4,15 +4,15 @@
       <form @submit.prevent="add">
         <div class="form-group">
           <label>Title</label>
-          <input v-model="title" type="text" class="form-control" required />
+          <input v-model="input.title" type="text" class="form-control" required />
         </div>
         <div class="form-group">
           <label>Description</label>
-          <input v-model="description" type="text" class="form-control" />
+          <input v-model="input.description" type="text" class="form-control" />
         </div>
         <div class="form-group">
           <label>Category</label>
-          <select v-model="categoryInput" class="form-control" required>
+          <select v-model="input.categoryInput" class="form-control" required>
             <option>Back Log</option>
             <option>Todo</option>
             <option>Done</option>
@@ -41,17 +41,19 @@ const Toast = Swal.mixin({
 export default {
   data() {
     return {
-      title: "",
-      description: "",
-      categoryInput: ""
+      input: {
+        title: "",
+        description: "",
+        categoryInput: ""
+      }
     };
   },
   methods: {
     add() {
       let inputData = {
-        title: this.title,
-        description: this.description,
-        category: this.categoryInput
+        title: this.input.title,
+        description: this.input.description,
+        category: this.input.categoryInput
       };
       axios
         .post("/tasks", inputData, {
@@ -62,9 +64,7 @@ export default {
         .then(({ data }) => {
           this.$bvModal.hide("add");
           this.$emit("add", data.Data);
-          this.title = "";
-          this.description = "";
-          this.inputData = "";
+          this.resetModalData();
           Toast.fire({
             icon: "success",
             title: "Task created successfully."
@@ -73,6 +73,20 @@ export default {
         .catch(err => {
           errorHandler(err);
         });
+    },
+    resetModalData() {
+      let stringDefault = "";
+      let numberDefault = 0;
+      let booleanDefault = false;
+      Object.keys(this.input).forEach(key => {
+        if (typeof this.input[key] === "number") {
+          this.input[key] = numberDefault;
+        } else if (typeof this.input[key] === "boolean") {
+          this.input[key] = booleanDefault;
+        } else {
+          this.input[key] = stringDefault;
+        }
+      });
     }
   }
 };
