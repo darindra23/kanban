@@ -79,6 +79,7 @@ export default {
         .post("/user/login", inputData)
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("fullname", data.fullname);
           this.$emit("login", { value: 2 });
         })
         .catch(error => {

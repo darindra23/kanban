@@ -20,6 +20,7 @@ export default {
       var id_token = googleUser.getAuthResponse().id_token;
       axios.post("/user/google", { id_token }).then(({ data }) => {
         localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("fullname", data.fullname);
         this.$emit("google", { value: 2 });
       });
     },

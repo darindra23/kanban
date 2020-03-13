@@ -8,7 +8,7 @@
           <b-nav-item-dropdown right>
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-              <em>Hi,Welcome !</em>
+              <em v-text="profile">Hi,Welcome !</em>
             </template>
             <b-dropdown-item href @click.prevent="signOut">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
@@ -31,14 +31,19 @@ const Toast = Swal.mixin({
   }
 });
 export default {
+  data() {
+    return {
+      profile: localStorage.fullname
+    };
+  },
   methods: {
     signOut() {
       localStorage.clear();
       this.$emit("signOut", { value: 0 });
       Toast.fire({
-          icon: "success",
-          title: "Sign out successfully , See you again !"
-        });
+        icon: "success",
+        title: "Sign out successfully , See you again !"
+      });
     }
   }
 };

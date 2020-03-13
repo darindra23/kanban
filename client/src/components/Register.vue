@@ -92,6 +92,7 @@ export default {
         .post("/user/register", inputData)
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
+          localStorage.setItem("fullname", data.fullname);
           this.$emit("register");
         })
         .catch(error => {
