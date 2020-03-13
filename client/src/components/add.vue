@@ -62,6 +62,9 @@ export default {
         .then(({ data }) => {
           this.$bvModal.hide("add");
           this.$emit("add", data.Data);
+          this.title = "";
+          this.description = "";
+          this.inputData = "";
           Toast.fire({
             icon: "success",
             title: "Task created successfully."
