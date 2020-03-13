@@ -49,7 +49,7 @@ class Controller {
       };
       let user = await User.findOne(condition);
       if (!user) {
-        let { id, email } = await User.create({
+        let { id, email, fullname } = await User.create({
           fullname: name,
           email,
           password
