@@ -1,12 +1,12 @@
-if (process.env.NODE_ENV === "development") require("dotenv").config();
+require("dotenv").config();
 const express = require("express");
 const app = express();
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 const cors = require("cors");
 const routes = require("./routes");
 const PORT = process.env.PORT;
 const { errorHandler } = require("./middlewares/errorHandler");
-const http = require("http").createServer(app);
-const io = require("socket.io")(http);
 
 app.use(cors());
 app.use(express.json());
