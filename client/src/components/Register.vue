@@ -93,7 +93,7 @@ export default {
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
           localStorage.setItem("fullname", data.fullname);
-          this.$emit("register");
+          this.$emit("register", { value: 2 });
         })
         .catch(error => {
           if (error.response.data[0].type === "Validation error") {

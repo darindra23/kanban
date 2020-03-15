@@ -13,6 +13,7 @@
   </div>
 </template>
 <script>
+let socket = io("https://kanban-darindra.herokuapp.com");
 import { axios } from "../config/axios.js";
 import Box from "./Box";
 import Add from "./add";
@@ -23,9 +24,6 @@ export default {
     Box,
     Add,
     Edit
-  },
-  created() {
-    this.getData();
   },
   data() {
     return {
@@ -38,6 +36,12 @@ export default {
       ],
       editTask: ""
     };
+  },
+  created() {
+    this.getData();
+    socket.on("realtime-data", rtdata => {
+      this.tasks = rtdata;
+    });
   },
   computed: {
     filtered() {
@@ -70,16 +74,18 @@ export default {
           }
         })
         .then(({ data }) => {
+          socket.emit("show-data", data);
           this.tasks = data;
         })
         .catch(err => {});
     },
     remove(id) {
       this.tasks = this.tasks.filter(i => i.id !== id);
-      console.log(id);
+      socket.emit("show-data", this.tasks);
     },
     add(data) {
       this.tasks.push(data);
+      socket.emit("show-data", this.tasks);
     },
     edit(data) {
       this.editTask = data;
@@ -93,6 +99,7 @@ export default {
         category: obj.data.category
       };
       this.tasks.push(data);
+      socket.emit("show-data", this.tasks);
     }
   }
 };
