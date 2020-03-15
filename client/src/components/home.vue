@@ -75,6 +75,7 @@ export default {
         })
         .then(({ data }) => {
           socket.emit("show-data", data);
+          data.sort((a, b) => a.updatedAt - b.updatedAt);
           this.tasks = data;
         })
         .catch(err => {});
