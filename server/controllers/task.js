@@ -21,7 +21,7 @@ class Controller {
         where: {
           id: req.params.id
         },
-        order: [["updatedAt", "DESC"]]
+        order: [["updatedAt", "ASC"]]
       };
       let task = await Task.findOne(condition);
       if (task) {
